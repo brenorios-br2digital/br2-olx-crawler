@@ -17,6 +17,7 @@ class IphoneOfferItem(scrapy.Item):
     product_id = scrapy.Field()
     url = scrapy.Field()
     title = scrapy.Field()
+    model = scrapy.Field()
     price = scrapy.Field()
     city = scrapy.Field()
     state = scrapy.Field()

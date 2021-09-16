@@ -5,6 +5,7 @@
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 from datetime import datetime, timedelta
+from .utils.utils import IPHONE_MODELS_LIST
 
 class Olxcrawler2Pipeline:
     def process_item(self, item, spider):
@@ -29,7 +30,17 @@ class IphoneOfferPipeline:
             offerItem["city"] = None
             offerItem["state"] = None
 
+        offerItem['model'] = self.getModel(offerItem["title"])
+
         return offerItem
+
+
+    def getModel(self, title):
+        for model in  IPHONE_MODELS_LIST:
+            if model in title:
+                return model
+            else:
+                return None
 
     def getDate(self, date):
         if date == 'Hoje':

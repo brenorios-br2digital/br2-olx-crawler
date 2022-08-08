@@ -26,3 +26,18 @@ IPHONE_MODELS_LIST = ["iPhone",
     "iPhone 12",
     "iPhone 12 Pro",
     "iPhone 12 Pro Max"]
+
+
+XPATH_FEATURES = {
+    "list": "//ul[@class='sc-1fcmfeb-1 kntIvV']/li",
+    "product_id": "a[@class='fnmrjs-0 fyjObc']/@data-lurker_list_id",
+    "url": 'a[@class="sc-12rk7z2-1 huFwya sc-giadOv dXANPZ"]/@href',
+    "title": "a[@class='fnmrjs-0 fyjObc']/@title",
+    "price": "a[@class='fnmrjs-0 fyjObc']//span[@class='sc-ifAKCX eoKYee']/text()",
+    "post_time": "a[@class='fnmrjs-0 fyjObc']//p[@class='sc-1iuc9a2-4 hDBjae sc-ifAKCX fWUyFm']/text()",
+    "city": "a[@class='sc-1c3ysll-0 lfQETj']//span[@class='sc-1c3ysll-1 iDvjkv sc-fzsDOv dTHJIA']",
+    "thumb_url":"a[@class='fnmrjs-0 fyjObc']//div[@class='fnmrjs-1 gIEtsI']//img/@src",
+    "is_featured":'a[@class="fnmrjs-0 fyjObc"]/@data-lurker_is_featured',
+    "list_position":'a[@class="fnmrjs-0 fyjObc"]/@data-lurker_list_position',
+    "next_page": """.//a[@data-lurker-detail='next_page']/@href"""
+}

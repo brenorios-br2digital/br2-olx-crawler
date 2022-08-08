@@ -13,24 +13,24 @@ class Olxcrawler2Pipeline:
 
 class IphoneOfferPipeline:
     def process_item(self, offerItem, spider):
-        if offerItem['post_time'] is not None and 'às' in offerItem['post_time']:
-            offerItem["post_date"] = self.getDate(offerItem["post_time"].split(' às ')[0])
-            offerItem["post_time"] = offerItem["post_time"].split(' às ')[1]
+        # if offerItem['post_time'] is not None and 'às' in offerItem['post_time']:
+        #     offerItem["post_date"] = self.getDate(offerItem["post_time"].split(' às ')[0])
+        #     offerItem["post_time"] = offerItem["post_time"].split(' às ')[1]
         
-        if offerItem["price"] is not None:
-            offerItem["price"] = float(offerItem["price"].split("R$ ")[1].replace('.', ''))
+        # if offerItem["price"] is not None:
+        #     offerItem["price"] = float(offerItem["price"].split("R$ ")[1].replace('.', ''))
             
-        offerItem["is_featured"] = True if offerItem['is_featured'] == '1' else False
-        offerItem["list_position"] = int(offerItem['list_position'])
+        # offerItem["is_featured"] = True if offerItem['is_featured'] == '1' else False
+        # offerItem["list_position"] = int(offerItem['list_position'])
 
-        if offerItem["city"] is not None and offerItem["city"] != '':
-                offerItem["state"] = offerItem["city"].split(' - ')[1].replace(' ', '')
-                offerItem["city"] = offerItem["city"].split(' - ')[0]
-        else:
-            offerItem["city"] = None
-            offerItem["state"] = None
+        # if offerItem["city"] is not None and offerItem["city"] != '':
+        #         offerItem["state"] = offerItem["city"].split(' - ')[1].replace(' ', '')
+        #         offerItem["city"] = offerItem["city"].split(' - ')[0]
+        # else:
+        #     offerItem["city"] = None
+        #     offerItem["state"] = None
 
-        offerItem['model'] = self.getModel(offerItem["title"])
+        # offerItem['model'] = self.getModel(offerItem["title"])
 
         return offerItem
 

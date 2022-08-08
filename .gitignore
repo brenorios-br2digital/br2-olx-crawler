@@ -1,2 +1,3 @@
 ./olxcrawler2/outputs
 *.csv
+./env

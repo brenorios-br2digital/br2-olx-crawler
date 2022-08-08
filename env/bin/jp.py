@@ -1,4 +1,4 @@
-#!/Users/brenor2/Documents/Br2 Digital/OwnApps/olxcrawler2/env/bin/python3
+#!/Users/brenor2/Documents/GitHub/br2-olx-crawler/env/bin/python3
 
 import sys
 import json

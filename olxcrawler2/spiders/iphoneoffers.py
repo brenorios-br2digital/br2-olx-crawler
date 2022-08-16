@@ -31,15 +31,23 @@ class IphoneoffersSpider(scrapy.Spider):
             offerItem["olx_pay_enabled"] = offer.xpath(XPATH_FEATURES["olx_pay_enabled"]).get()
             offerItem["olx_delivery_enabled"] = offer.xpath(XPATH_FEATURES["olx_delivery_enabled"]).get()
 
-            print("___CITY___", flush=True)
-            print(offerItem["city"])
+            # if detail_url is not None:
+            #     print("url is not none", flush=True)
+            #     detail_req = scrapy.Request(url=detail_url, callback=self.parse_details)
+            #     detail_req.meta['item'] = offerItem
 
-            if detail_url is not None:
-                print("url is not none", flush=True)
-                detail_req = scrapy.Request(url=detail_url, callback=self.parse_details)
-                detail_req.meta['item'] = offerItem
+            #     yield detail_req
 
-                yield detail_req
+            yield offerItem
+
+            nextPageUrl = response.xpath(XPATH_FEATURES["next_page"]).get()
+            if nextPageUrl is not '' and nextPageUrl is not None:
+                if 'o=' in nextPageUrl:
+                    pageNum = nextPageUrl.split('o=')[1].split('&')[0]
+                    print(f'Current page: {pageNum}')
+                else:
+                    print(f'Current page: 1')
+                yield response.follow(url=nextPageUrl, callback=self.parse)  
 
     def parse_details(self, response):
         item = response.meta['item']
@@ -54,14 +62,7 @@ class IphoneoffersSpider(scrapy.Spider):
         
         yield item
 
-        nextPageUrl = response.xpath(XPATH_FEATURES["next_page"]).get()
-        if nextPageUrl is not '' and nextPageUrl is not None:
-            if 'o=' in nextPageUrl:
-                pageNum = nextPageUrl.split('o=')[1].split('&')[0]
-                print(f'Current page: {pageNum}', flush=True)
-            else:
-                print(f'Current page: 1', flush=True)
-            yield response.follow(url=nextPageUrl, callback=self.parse)  
+        
 
         
 

@@ -18,18 +18,13 @@ class IphoneOfferPipeline:
             offerItem["post_time"] = offerItem["post_time"].split(',')[1].strip()
 
         if offerItem["price"] is not None:
-            price = offerItem["price"]
-            if isinstance(price, str) and "R$" in price:
-                offerItem["price"] = float(price.replace("R$", "").strip())
-            else:
-                offerItem["price"] = price
+            offerItem["price"] = float(offerItem["price"].replace("R$", "").strip().replace('.', ''))
+            
             
         offerItem["is_featured"] = True if offerItem['is_featured'] == '1' else False
         offerItem["list_position"] = int(offerItem['list_position'])
 
         if offerItem["city"] is not None and offerItem["city"] != '':
-                print("___CITY___", flush=True)
-                print(offerItem["city"], flush=True)
                 offerItem["state"] = offerItem["city"].split(' - ')[1].strip()
                 offerItem["city"] = offerItem["city"].split(' - ')[0].strip()
         else:

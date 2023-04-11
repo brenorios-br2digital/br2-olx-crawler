@@ -13,27 +13,33 @@ class Olxcrawler2Pipeline:
 
 class IphoneOfferPipeline:
     def process_item(self, offerItem, spider):
-        if offerItem['post_time'] is not None and 'às' in offerItem['post_time']:
-            offerItem["post_date"] = self.getDate(offerItem["post_time"].split(' às ')[0])
-            offerItem["post_time"] = offerItem["post_time"].split(' às ')[1]
-        
+        if offerItem['post_time'] is not None and ',' in offerItem['post_time']:
+            offerItem["post_date"] = self.getDate(offerItem["post_time"].split(',')[0])
+            offerItem["post_time"] = offerItem["post_time"].split(',')[1].strip()
+
         if offerItem["price"] is not None:
-            offerItem["price"] = float(offerItem["price"].split("R$ ")[1].replace('.', ''))
+            offerItem["price"] = float(offerItem["price"].replace("R$", "").strip().replace('.', ''))
+            
             
         offerItem["is_featured"] = True if offerItem['is_featured'] == '1' else False
         offerItem["list_position"] = int(offerItem['list_position'])
 
         if offerItem["city"] is not None and offerItem["city"] != '':
-                offerItem["state"] = offerItem["city"].split(' - ')[1].replace(' ', '')
-                offerItem["city"] = offerItem["city"].split(' - ')[0]
+                offerItem["state"] = offerItem["city"].split(' - ')[1].strip()
+                offerItem["city"] = offerItem["city"].split(' - ')[0].strip()
         else:
             offerItem["city"] = None
             offerItem["state"] = None
 
-        offerItem['model'] = self.getModel(offerItem["title"])
+        offerItem["vehicle_report_enabled"] = True if offerItem['vehicle_report_enabled'] == 'true' else False
+        offerItem["olx_pay_enabled"] = True if offerItem['olx_pay_enabled'] == 'true' else False
+        offerItem["olx_delivery_enabled"] = True if offerItem['olx_delivery_enabled'] == 'true' else False
+        offerItem["last_bump_age_secs"] = int(offerItem['last_bump_age_secs'])
+        # offerItem["seller_phone_verified"] = True if 'não' not in offerItem['seller_phone_verified'] else False
+        # offerItem["seller_email_verified"] = True if 'não' not in offerItem['seller_email_verified'] else False
+        # offerItem["seller_facebook_verified"] = True if 'não' not in offerItem['seller_facebook_verified'] else False
 
         return offerItem
-
 
     def getModel(self, title):
         for model in  IPHONE_MODELS_LIST:
@@ -48,7 +54,6 @@ class IphoneOfferPipeline:
         elif date == 'Ontem':
             return (datetime.now() - timedelta(days=1)).strftime('%Y-%m-%d')
         else:
-            # date_formatted = self.formatDate(date)
             return datetime.now().strftime('%Y-') + datetime.strptime(date, '%d/%m').strftime('%m-%d')        
 
     def formatDate(self, date):

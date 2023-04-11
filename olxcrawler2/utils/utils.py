@@ -26,3 +26,31 @@ IPHONE_MODELS_LIST = ["iPhone",
     "iPhone 12",
     "iPhone 12 Pro",
     "iPhone 12 Pro Max"]
+
+
+XPATH_FEATURES = {
+    "list": "//ul[@class='sc-1fcmfeb-1 kntIvV']/li",
+    "product_id": "div/a/@data-lurker_list_id",
+    "url": 'div/a/@href',
+    "title": "div/a/@title",
+    "price": 'div/a/descendant::span[contains(@aria-label,"Preço do item")]/text()',
+    "post_time": 'div/a/descendant::span[contains(@aria-label,"Anúncio publicado em")]/text()',
+    "city": 'div/a/descendant::span[contains(@aria-label,"Localização")]/text()',
+    "thumb_url":'div/a/descendant::img[contains(@alt,"Título do anúncio")]/@src',
+    "is_featured":'div/a/@data-lurker_is_featured',
+    "list_position":'div/a/@data-lurker_list_position',
+    "vehicle_report_enabled":'div/a/@data-lurker_vehicle_report_enabled',
+    "last_bump_age_secs":'div/a/@data-lurker_last_bump_age_secs',
+    "olx_pay_enabled":'div/a/@data-lurker_olx_pay_enabled',
+    "olx_delivery_enabled":'div/a/@data-lurker_olx_delivery_enabled',
+    "description": '//div[descendant::span="Descrição"]/following-sibling::div/div/p/span/text()',
+    "zipcode": '//dt[contains(text(),"CEP")]/following-sibling::dd/text()',
+    "neighbourhood": '//dt[contains(text(),"Bairro")]/following-sibling::dd/text()',
+    "seller_user": '//div[preceding-sibling::div/span="Anunciante"]/descendant::span[1]',
+    "seller_join_date": '//div[preceding-sibling::div/span="Anunciante"]/descendant::span[2]',
+    "seller_phone_verified": '//div[span="Verificado com:"]/div[1]/@title',
+    "seller_email_verified": '//div[span="Verificado com:"]/div[2]/@title',
+    "seller_facebook_verified": '//div[span="Verificado com:"]/div[3]/@title',
+
+    "next_page": '//a[div/span="Mais anúncios"]/@href'
+}
